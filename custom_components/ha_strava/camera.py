@@ -17,8 +17,6 @@ from .const import (
     CONFIG_URL_DUMP_FILENAME,
 )
 from hashlib import md5
-from homeassistant.const import EVENT_TIME_CHANGED
-
 _LOGGER = logging.getLogger(__name__)
 
 
@@ -51,10 +49,6 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
 
         if event.data["now"].second % img_update_interval_seconds == 0:
             camera.rotate_img()
-
-    hass.data[DOMAIN]["remove_update_listener"].append(
-        hass.bus.async_listen(EVENT_TIME_CHANGED, image_update_listener)
-    )
 
     return
 
